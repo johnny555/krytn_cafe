@@ -1,0 +1,25 @@
+name: 'Build ROS'
+
+# **What it does**: Renders the content of every page and check all internal links.
+# **Why we have it**: To make sure all links connect correctly.
+# **Who does it impact**: Docs content.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  check-links:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: ros-tooling/setup-ros@v0.6
+        with:
+          required-ros-distributions: foxy
+      - uses: ros-tooling/action-ros-ci@v0.3
+        with:
+          package-name: krytn_cafe
+          target-ros2-distro: foxy
+          skip-tests: true
