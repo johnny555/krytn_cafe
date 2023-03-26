@@ -3,7 +3,7 @@
 
   <xacro:property name="wheel_r" value="0.1" />
   <xacro:property name="wheel_xpos" value="0.11" />
-  <xacro:include filename="/workspace/dev_ws/src/warehouse_robot_spawner_pkg/models/krytn/inertial.xacro" />
+  <xacro:include filename="$(find krytn_cafe)/models/krytn/inertial.xacro" />
 
 
   <xacro:macro name="low_friction">
