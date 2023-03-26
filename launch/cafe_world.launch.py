@@ -12,12 +12,13 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='True')
+    world_file_name = '/usr/share/gazebo-11/worlds/cafe.world'
     pkg_dir = get_package_share_directory('krytn_cafe')
  
     os.environ["GAZEBO_MODEL_PATH"] = os.path.join(pkg_dir, 'models')
  
-    empty_gazebo = ExecuteProcess(
-            cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', 
+    cafe_gazebo = ExecuteProcess(
+            cmd=['gazebo', world_file_name, '--verbose', '-s', 'libgazebo_ros_init.so', 
             '-s', 'libgazebo_ros_factory.so'],
             output='screen')
  
@@ -26,6 +27,6 @@ def generate_launch_description():
                     os.path.join(pkg_dir,'launch', 'spawn_krytn.launch.py')))
 
     return LaunchDescription([
-        empty_gazebo,
+        cafe_gazebo,
         krytn       
     ])
