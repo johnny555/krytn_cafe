@@ -13,6 +13,7 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='True')
+    # Using a variant of the world with the actors removed.
     world_file_name = os.path.join(pkg_dir, 'worlds', 'cafe.world')
     pkg_dir = get_package_share_directory('krytn_cafe')
 
