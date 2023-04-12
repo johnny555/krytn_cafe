@@ -6,20 +6,21 @@ from glob import glob
 package_name = 'krytn_cafe'
 package_share = join('share', package_name)
 data_files = [
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
-        
-        ('share/' + package_name, ['package.xml'])    ,
-        
-        (join('share', package_name, 'launch'), glob('launch/*launch.py')),
-        
-        (join(package_share,'models/krytn/'),
-            glob('models/krytn/*.urdf') + glob('models/krytn/*.xacro') 
-            + glob('models/krytn/model.config')),
+    ('share/ament_index/resource_index/packages',
+     ['resource/' + package_name]),
 
-        (join(package_share, 'models/krytn/meshes/'), 
-            glob('models/krytn/meshes/*.dae'))
-        ]
+    ('share/' + package_name, ['package.xml']),
+
+    (join('share', package_name, 'launch'), glob('launch/*launch.py')),
+    (join(package_share, 'config'), glob('config/*.yaml')),
+
+    (join(package_share, 'models/krytn/'),
+     glob('models/krytn/*.urdf') + glob('models/krytn/*.xacro')
+     + glob('models/krytn/model.config')),
+
+    (join(package_share, 'models/krytn/meshes/'),
+     glob('models/krytn/meshes/*.dae'))
+]
 setup(
     name=package_name,
     version='0.0.0',
