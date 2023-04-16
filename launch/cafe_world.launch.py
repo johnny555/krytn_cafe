@@ -12,22 +12,31 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    # Using a variant of the world with the actors removed.
-    world_file_name = os.path.join(pkg_dir, 'worlds', 'cafe.world')
-    pkg_dir = get_package_share_directory('krytn_cafe')
+    use_sim_time = LaunchConfiguration("use_sim_time", default="True")
 
-    os.environ["GAZEBO_MODEL_PATH"] = os.path.join(pkg_dir, 'models')
+    # Using a variant of the world with the actors removed.
+    world_file_name = os.path.join(pkg_dir, "worlds", "cafe.world")
+    pkg_dir = get_package_share_directory("krytn_cafe")
+
+    os.environ["GAZEBO_MODEL_PATH"] = os.path.join(pkg_dir, "models")
 
     cafe_gazebo = ExecuteProcess(
-        cmd=['gazebo', world_file_name, '--verbose', '-s', 'libgazebo_ros_init.so',
-             '-s', 'libgazebo_ros_factory.so'],
-        output='screen')
+        cmd=[
+            "gazebo",
+            world_file_name,
+            "--verbose",
+            "-s",
+            "libgazebo_ros_init.so",
+            "-s",
+            "libgazebo_ros_factory.so",
+        ],
+        output="screen",
+    )
 
     krytn = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_dir, 'launch', 'spawn_krytn.launch.py')))
+            os.path.join(pkg_dir, "launch", "spawn_krytn.launch.py")
+        )
+    )
 
-    return LaunchDescription([
-        cafe_gazebo,
-        krytn
-    ])
+    return LaunchDescription([cafe_gazebo, krytn])
