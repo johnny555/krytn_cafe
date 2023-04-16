@@ -12,6 +12,8 @@ from launch.substitutions import ThisLaunchFileDir, LaunchConfiguration
 from launch_ros.actions import Node
 from launch.actions import ExecuteProcess
 from ament_index_python.packages import get_package_share_directory
+from launch.substitutions import Command, FindExecutable, PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
 
 import xacro
 
@@ -28,12 +30,32 @@ def generate_launch_description():
     xacro.process_doc(doc)
     params = {"robot_description": doc.toxml()}
 
+    robot_description_content = Command(
+        [
+            PathJoinSubstitution([FindExecutable(name="xacro")]),
+            " ",
+            PathJoinSubstitution(
+                [FindPackageShare("krytn_cafe"), "models", "krytn", "krytn.xacro.urdf"]
+            ),
+        ]
+    )
+
     # This spawns a robot based on the robot_description urdf.
     spawn_entity = Node(
         package="gazebo_ros",
         executable="spawn_entity.py",
         arguments=["-topic", "robot_description", "-entity", "krytn"],
         output="screen",
+    )
+
+    robot_description = {"robot_description": robot_description_content}
+
+    robot_controllers = PathJoinSubstitution(
+        [
+            FindPackageShare("krytn_cafe"),
+            "config",
+            "diff_con.yaml",
+        ]
     )
 
     node_robot_state_publisher = Node(
