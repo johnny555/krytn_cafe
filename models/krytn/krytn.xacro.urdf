@@ -225,10 +225,7 @@
   </ros2_control>
 
   <gazebo>
-    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-   
-    <parameters>/workspace/dev_ws/src/warehouse_robot_spawner_pkg/config/copy_of_diff_con.yaml</parameters>
-    
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">    
     </plugin>
   </gazebo>
     <gazebo reference="left_wheel">
