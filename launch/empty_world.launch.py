@@ -17,16 +17,13 @@ def generate_launch_description():
 
     os.environ["GAZEBO_MODEL_PATH"] = os.path.join(pkg_dir, "models")
 
-    empty_gazebo = ExecuteProcess(
-        cmd=[
-            "gazebo",
-            "--verbose",
-            "-s",
-            "libgazebo_ros_init.so",
-            "-s",
-            "libgazebo_ros_factory.so",
-        ],
-        output="screen",
+    gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            [
+                os.path.join(get_package_share_directory("gazebo_ros"), "launch"),
+                "/gazebo.launch.py",
+            ]
+        ),
     )
 
     krytn = IncludeLaunchDescription(
@@ -35,4 +32,4 @@ def generate_launch_description():
         )
     )
 
-    return LaunchDescription([empty_gazebo, krytn])
+    return LaunchDescription([gazebo, krytn])

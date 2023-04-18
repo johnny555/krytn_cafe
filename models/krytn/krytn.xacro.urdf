@@ -38,7 +38,7 @@
     <visual>
       <origin xyz="${-wheel_xpos} 0 ${-wheel_r+0.071}" rpy="0 0 0" />
       <geometry>
-        <mesh filename="model://krytn/meshes/magni_body.dae" />
+        <mesh filename="$(find krytn_cafe)/models/krytn/meshes/magni_body.dae" />
       </geometry>
     </visual>
        
@@ -97,7 +97,7 @@
       <visual>
         <origin xyz="${-0.071*reflect} 0 0" rpy="0 ${(reflect-1)*pi/2} 0" />
         <geometry>
-          <mesh filename="model://krytn/meshes/front_wheel.dae" />
+          <mesh filename="$(find krytn_cafe)/models/krytn/meshes/front_wheel.dae" />
         </geometry>
       </visual>
 
@@ -145,7 +145,7 @@
         <origin xyz="-0.25 ${reflect*0.169} 0" rpy="0 0 ${pi}" />
 
         <geometry>
-          <mesh filename="model://krytn/meshes/caster_wheel.dae" />
+          <mesh filename="$(find krytn_cafe)/models/krytn/meshes/caster_wheel.dae" />
         </geometry>
       </visual>
 
@@ -224,10 +224,6 @@
     </joint>
   </ros2_control>
 
-  <gazebo>
-    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">    
-    </plugin>
-  </gazebo>
     <gazebo reference="left_wheel">
         <mu1>1.0</mu1>
         <mu2>1.0</mu2>
@@ -302,6 +298,13 @@
       <frame_name>laser_link</frame_name>
     </plugin>
     </sensor>
+  </gazebo>
+
+  <gazebo>
+    <!-- Joint state publisher -->
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <parameters>$(find krytn_cafe)/config/diff_drive_controller.yaml</parameters>
+    </plugin>
   </gazebo>
 
 
