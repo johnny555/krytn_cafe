@@ -14,6 +14,9 @@ data_files = [
     (join('share', package_name, 'launch'), glob('launch/*launch.py')),
     (join(package_share, 'config'), glob('config/*.yaml')),
 
+    (join(package_share, 'worlds'), glob('worlds/*.world')),
+
+
     (join(package_share, 'models/krytn/'),
      glob('models/krytn/*.urdf') + glob('models/krytn/*.xacro')
      + glob('models/krytn/model.config')),

@@ -12,7 +12,6 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    use_sim_time = LaunchConfiguration("use_sim_time", default="True")
     pkg_dir = get_package_share_directory("krytn_cafe")
 
     os.environ["GAZEBO_MODEL_PATH"] = os.path.join(pkg_dir, "models")
