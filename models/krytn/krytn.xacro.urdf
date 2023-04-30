@@ -193,14 +193,13 @@
    
   </link>
 
-
-  
   <joint name="laser_link_joint" type="fixed">
     <parent link="base_link"/>
     <child link="laser_link"/>
     <origin rpy="0 0 0" xyz="-0.093 0 0.198"/>
 
   </joint>
+
 
   <ros2_control name="GazeboSystem" type="system">
     <hardware>
@@ -307,5 +306,86 @@
     </plugin>
   </gazebo>
 
+  
+<!-- add a realsense -->
+
+  <link name="realsense_link" >
+  </link>
+  <joint name="realsense_joint" type="fixed" >
+    <parent link="base_link"/>
+    <child link="realsense_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0.6"/>
+  </joint>
+
+  <link name="realsense_depth_link">
+    <visual name="visual">
+      <geometry>
+          <cylinder length="0.05" radius="0.05"/>
+       </geometry>
+    </visual>
+    <collision>
+      <geometry>
+         <cylinder length="0.05" radius="0.05"/>
+      </geometry>
+    </collision>
+   
+  </link>
+   
+  <joint name="realsense_depth_joint" type="fixed">
+    <parent link="realsense_link"/>
+    <child link="realsense_depth_link"/>
+    <origin rpy="${-pi/2} 0 ${-pi/2}" xyz="0 0 0"/>
+
+  </joint>
+
+
+  <gazebo reference="realsense_link">
+    <sensor type="depth" name="camera1">
+    <visualize>true</visualize>
+
+    <update_rate>2</update_rate>
+    <camera name="camera_name">
+    
+      <horizontal_fov>1.3962634</horizontal_fov>
+      <image>
+        <width>640</width>
+        <height>480</height>
+        <format>R8G8B8</format>
+      </image>
+      <clip>
+        <near>0.02</near>
+        <far>300</far>
+      </clip>
+      <noise>
+        <type>gaussian</type>
+        <!-- Noise is sampled independently per pixel on each frame.
+              That pixel's noise value is added to each of its color
+              channels, which at that point lie in the range [0,1]. -->
+        <mean>0.0</mean>
+        <stddev>0.007</stddev>
+      </noise>
+    </camera>
+
+    <plugin name="depth_camera_controller" filename="libgazebo_ros_camera.so">
+        <baseline>0.2</baseline>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <frame_name>realsense_depth_link</frame_name>
+        <pointCloudCutoff>0.5</pointCloudCutoff>
+        <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+        <distortionK1>0</distortionK1>
+        <distortionK2>0</distortionK2>
+        <distortionK3>0</distortionK3>
+        <distortionT1>0</distortionT1>
+        <distortionT2>0</distortionT2>
+        <CxPrime>0</CxPrime>
+        <Cx>0</Cx>
+        <Cy>0</Cy>
+        <focalLength>0</focalLength>
+        <hackBaseline>0</hackBaseline>
+      </plugin> 
+
+  </sensor>
+</gazebo>
 
 </robot>

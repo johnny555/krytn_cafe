@@ -5,7 +5,7 @@ Spawn the cafe world and Krytn
 import os
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
-from launch.actions import ExecuteProcess
+from launch.actions import ExecuteProcess, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import ThisLaunchFileDir, LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
@@ -22,7 +22,7 @@ def generate_launch_description():
                 os.path.join(get_package_share_directory("gazebo_ros"), "launch"),
                 "/gazebo.launch.py",
             ]
-        ),
+        )
     )
 
     krytn = IncludeLaunchDescription(
@@ -31,4 +31,6 @@ def generate_launch_description():
         )
     )
 
-    return LaunchDescription([gazebo, krytn])
+    log_level = DeclareLaunchArgument(name='log_level', default_value='debug')
+
+    return LaunchDescription([log_level, gazebo, krytn])
