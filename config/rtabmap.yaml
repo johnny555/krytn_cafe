@@ -1,0 +1,9 @@
+rtabmap:
+  ros__parameters:
+    frame_id: "realsense_depth_link"
+    odom_frame_id: "odom"
+    subscribe_depth: true
+    subscribe_rgbd: false
+    queue_size: 100
+    approx_sync: true
+    wait_for_transform_duration: 2.0

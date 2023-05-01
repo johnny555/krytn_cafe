@@ -12,10 +12,13 @@ from ament_index_python.packages import get_package_share_directory
 
 
 import xacro
-
+from launch.substitutions import LaunchConfiguration
+from launch.actions import SetEnvironmentVariable
 
 def generate_launch_description():
     pkg_dir = get_package_share_directory("krytn_cafe")
+    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
+    set_use_sim_time = SetEnvironmentVariable('RCUTILS_CONSOLE_OUTPUT_FORMAT', use_sim_time)
 
     xacro_file = os.path.join(pkg_dir, "models", "krytn", "krytn.xacro.urdf")
 
@@ -62,7 +65,8 @@ def generate_launch_description():
     )
 
     return LaunchDescription(
-        [
+        [ 
+            set_use_sim_time,
             RegisterEventHandler(
                 event_handler=OnProcessExit(
                     target_action=spawn_entity,
