@@ -5,7 +5,8 @@
   <xacro:property name="wheel_xpos" value="0.11" />
   <xacro:include filename="$(find krytn_cafe)/models/krytn/inertial.xacro" />
 
-
+  <xacro:arg name="use_nominal_extrinsics" default="false" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro"/>
   <xacro:macro name="low_friction">
               <mu>0.1</mu>
               <mu1>0.1</mu1> 
@@ -194,36 +195,11 @@
   
 <!-- add a realsense -->
 
-  <link name="realsense_link" >
-  </link>
-  <joint name="realsense_joint" type="fixed" >
-    <parent link="base_link"/>
-    <child link="realsense_link"/>
-    <origin rpy="0 0 0" xyz="0 0 0.6"/>
-  </joint>
+<xacro:sensor_d435i parent="base_link" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
+   <origin rpy="0 0 0" xyz="0 0 0.6"/>
+</xacro:sensor_d435i>
 
-  <link name="realsense_depth_link">
-    <visual name="visual">
-      <geometry>
-          <cylinder length="0.05" radius="0.05"/>
-       </geometry>
-    </visual>
-    <collision>
-      <geometry>
-         <cylinder length="0.05" radius="0.05"/>
-      </geometry>
-    </collision>
-   
-  </link>
-   
-  <joint name="realsense_depth_joint" type="fixed">
-    <parent link="realsense_link"/>
-    <child link="realsense_depth_link"/>
-    <origin rpy="${-pi/2} 0 ${-pi/2}" xyz="0 0 0"/>
-
-  </joint>
-
-
+<!-- Setup motor control -->
     <ros2_control name="magni" type="system">
 
       <hardware>        
