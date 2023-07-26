@@ -195,7 +195,7 @@
   
 <!-- add a realsense -->
 
-<xacro:sensor_d435i parent="base_link" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
+<xacro:sensor_d435i parent="base_link" name="camera" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
    <origin rpy="0 0 0" xyz="0 0 0.6"/>
 </xacro:sensor_d435i>
 
