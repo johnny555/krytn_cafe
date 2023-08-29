@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 10  # Hz
+    update_rate: 50  # Hz
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -72,19 +72,22 @@ diff_drive_base_controller:
     angular.z.max_jerk: 0.0
     angular.z.min_jerk: 0.0
 
-teleop:
+
+joy_teleop:
   ros__parameters:
-    cmd_vel: "/diff_drive_base_controller/cmd_vel_unstamped"
-    axis_mappings:
-    - axis: 1
-      target: linear
-      scale: 0.5
-    - axis: 0
-      target: angular
-      scale: 0.5
-    button_mappings:
-    # This will depend on the layout of your joystick.
-    # Here's an example that uses button 0 (usually the A button on an Xbox controller)
-    # to start the controller.
-    - button: 0
-      action: start_controller
+    autorepeat_rate: 0.0
+    move:
+      type: topic
+      interface_type: geometry_msgs/msg/Twist
+      topic_name: /diff_drive_base_controller/cmd_vel_unstamped
+      deadman_buttons: [4]
+      axis_mappings:
+        linear-x:
+          axis: 1
+          scale: 0.5
+          offset: 0
+        angular-z:
+          axis: 0
+          scale: 0.5
+          offset: 0
+        
