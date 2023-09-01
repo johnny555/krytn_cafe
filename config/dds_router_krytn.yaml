@@ -28,7 +28,7 @@ participants:
   - name: Router_Server
     kind: wan
     listening-addresses:
-      - ip: 192.168.1.107
+      - ip: 192.168.1.101
         port: 11777
         external-port: 11777
         transport: tcp

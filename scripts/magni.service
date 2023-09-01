@@ -1,0 +1,10 @@
+[Unit]
+Description=Magni Launch Scripts
+
+[Service]
+ExecStart=/home/ubuntu/krytn_ws/src/krytn_cafe/scripts/magni_bringup.sh
+User=ubuntu
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
