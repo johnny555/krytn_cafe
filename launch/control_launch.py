@@ -65,20 +65,20 @@ def generate_launch_description():
     )
 
     joy = Node(
-    package='joy',
-    executable='joy_node',
-    parameters=[{'dev': '/dev/input/js0', 'deadzone': 0.1, 'autorepeat_rate': 10.0}],
-    output='screen'
+        package='joy',
+        executable='joy_node',
+        parameters=[{'dev': '/dev/input/js0', 'deadzone': 0.1, 'autorepeat_rate': 10.0}],
+        output='screen'
     )
 
     joy_teleop = Node(
-    package='joy_teleop',
-    executable='joy_teleop',
-    name='joy_teleop',
-    parameters=[PathJoinSubstitution([get_package_share_directory("krytn_cafe"), 
-            'config', 'real_world_diff_drive.yaml'])],
-    output='screen'
-)
+        package='joy_teleop',
+        executable='joy_teleop',
+        name='joy_teleop',
+        parameters=[PathJoinSubstitution([get_package_share_directory("krytn_cafe"), 
+                'config', 'real_world_diff_drive.yaml'])],
+        output='screen'
+    )
 
 
     nodes = [

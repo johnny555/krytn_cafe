@@ -1,0 +1,10 @@
+[Unit]
+Description=Krytn Launch Scripts
+
+[Service]
+ExecStart=/home/krytn/krytn_ws/src/krytn_cafe/scripts/krytn_bringup.sh
+User=ubuntu
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
