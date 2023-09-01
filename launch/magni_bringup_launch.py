@@ -80,9 +80,25 @@ def generate_launch_description():
         output='screen'
     )
 
+    lidar = Node(
+            name='rplidar_composition',
+            package='rplidar_ros',
+            executable='rplidar_composition',
+            output='screen',
+            parameters=[{
+                'serial_port': '/dev/ttyUSB0',
+                'serial_baudrate': 115200,  
+                'frame_id': 'laser_link',
+                'inverted': False,
+                'angle_compensate': True,
+            }],
+        )
+
+
 
     nodes = [
         joy,
+        lidar,
         joy_teleop,
         control_node,
         robot_state_pub_node,
