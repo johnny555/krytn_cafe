@@ -101,20 +101,6 @@ def launch_setup(context, params, param_name_suffix=''):
     _config_file = LaunchConfiguration('config_file' + param_name_suffix).perform(context)
     params_from_file = {} if _config_file == "''" else yaml_to_dict(_config_file)
 
-    log_level = 'info'
-    lidar = Node(
-            name='rplidar_composition',
-            package='rplidar_ros',
-            executable='rplidar_composition',
-            output='screen',
-            parameters=[{
-                'serial_port': '/dev/ttyUSB0',
-                'serial_baudrate': 115200,  
-                'frame_id': 'laser_link',
-                'inverted': False,
-                'angle_compensate': True,
-            }],
-        )
 
     realsense_params = DeclareLaunchArgument(
         'config_file',

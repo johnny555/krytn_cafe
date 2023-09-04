@@ -19,7 +19,7 @@
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>rtabmap</exec_depend>
   <exec_depend>navigation2</exec_depend>
-  <exec_depend>slam_toolbox</exec_depend>
+  <exec_depend>slam-toolbox</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
