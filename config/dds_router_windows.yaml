@@ -9,10 +9,29 @@ version: v3.0 # 0
 participants:
   - name: DDS_LAN_B
     kind: local
+    domain: 0
 
-  - name: Router_Client
-    kind: wan
-    connection-addresses:
-      - ip: 192.168.1.107
-        port: 11777
-        transport: tcp
+  #- name: Router_Client
+  #  kind: wan
+  #  connection-addresses:
+  #    - ip: 192.168.1.122
+  #      port: 11777
+  #      transport: tcp
+
+  - name: WANClient # 6
+    kind: wan-discovery-server # 7
+    discovery-server-guid:
+      id: 2 # 8
+    connection-addresses: # 9
+      - discovery-server-guid:
+          id: 1 # 10
+        addresses: # 11
+          - ip: 192.168.1.122
+            port: 11888
+            transport: tcp
+
+  - name: EchoParticipant # 6
+    kind: echo # 7
+    discovery: true # 8
+    data: false # 9
+    verbose: false # 10
