@@ -15,6 +15,8 @@ def generate_launch_description():
       PythonLaunchDescriptionSource([join( krytn_launch_dir, 'perception_launch.py')])
       )
 
+      
+
     return LaunchDescription([
       perception
    ])
